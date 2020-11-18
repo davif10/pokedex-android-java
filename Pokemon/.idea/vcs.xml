@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/MeuTrampo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/alertdialog-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/aprendaingles-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/asyncTask-android-Java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/atmconsultoria-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/calendario-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/caraoucoroa-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/fragments-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/listadetarefas-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mediaplayer-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/precomedio-java-android" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/requisicoeshttp-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/retrofit-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/salveasprincesas-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/testes-android-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/whatsapp-android-java" vcs="Git" />
+  </component>
+</project>
