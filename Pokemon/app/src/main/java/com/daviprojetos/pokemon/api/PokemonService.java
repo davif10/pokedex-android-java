@@ -10,6 +10,6 @@ import retrofit2.http.GET;
 public interface PokemonService {
 
     //Para o formato Json
-    @GET("/photos")
+    @GET("/posts")
     Call <List<Pokemon>>recuperarPokemons();
 }
