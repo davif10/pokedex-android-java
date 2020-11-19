@@ -148,28 +148,48 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Pokemon pokemon = new Pokemon();
-            JSONArray objetoValor = null;
+            JSONArray objetoPokemon = null;
+            List<String>tipos=new ArrayList<>();
+            List<String>fraquezas=new ArrayList<>();
 
             try {
                 JSONObject jsonObject = new JSONObject(s);
-                objetoValor = jsonObject.getJSONArray("pokemon");
-                //String objeto = objetoValor.toString();
+                objetoPokemon = jsonObject.getJSONArray("pokemon");
 
-                for(int i =0;i<objetoValor.length();i++){
-                    JSONObject jsonObjectDadosPokemon = new JSONObject(objetoValor.getString(i));
+                for(int i =0;i<objetoPokemon.length();i++){
+                    tipos.clear();
+                    fraquezas.clear();
+                    JSONObject jsonObjectDadosPokemon = new JSONObject(objetoPokemon.getString(i));
 
                     pokemon.setId(jsonObjectDadosPokemon.getInt("id"));
                     pokemon.setNum(jsonObjectDadosPokemon.getString("num"));
                     pokemon.setName(jsonObjectDadosPokemon.getString("name"));
-                    System.out.println("ID POKEMON: "+pokemon.getId() +" Número Pokemon: "+ pokemon.getNum()+ " Nome: "+pokemon.getName());
+                    pokemon.setImg(jsonObjectDadosPokemon.getString("img"));
+                    pokemon.setHeight(jsonObjectDadosPokemon.getString("height"));
+                    pokemon.setWeight(jsonObjectDadosPokemon.getString("weight"));
+                    //Pegando os Tipos do Pokemon
+                    JSONArray tipo = jsonObjectDadosPokemon.getJSONArray("type");
+                    for(int j=0;j<tipo.length();j++){
+                        String valor = tipo.getString(j);
+                        tipos.add(valor);
+                        pokemon.setType(tipos);
+
+                    }
+
+                    //Pegando as fraquezas
+                    JSONArray fraqueza = jsonObjectDadosPokemon.getJSONArray("weaknesses");
+                    for(int k = 0; k<fraqueza.length();k++){
+                        String valor = fraqueza.getString(k);
+                        fraquezas.add(valor);
+                        pokemon.setWeaknesses(fraquezas);
+                    }
+
+                    //pokemon.setWeaknesses(jsonObjectDadosPokemon.getString("weaknesses"));
+
+                    System.out.println("ID POKEMON: "+pokemon.getId() +" Número Pokemon: "+ pokemon.getNum()+ " Nome: "+pokemon.getName()
+                    +" Endereço da imagem: "+pokemon.getImg()+" Tamanho: "+pokemon.getHeight()+" Peso: "+pokemon.getWeight()+"    TIPOS: "+pokemon.getType()+"   FRAQUEZAS: "+ pokemon.getWeaknesses());
                 }
 
-
-                /*objetoValor = jsonObject.getString("BRL");
-
-                JSONObject jsonObjectReal = new JSONObject(objetoValor);
-                valorMoeda = jsonObjectReal.getString("last");
-                simbolo = jsonObjectReal.getString("symbol");*/
 
             } catch (JSONException e) {
                 e.printStackTrace();
