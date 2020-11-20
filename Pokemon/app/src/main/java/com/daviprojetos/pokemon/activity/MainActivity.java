@@ -4,7 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.daviprojetos.pokemon.R;
 import com.daviprojetos.pokemon.adapter.PokedexAdapter;
@@ -37,29 +42,42 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private List<Pokemon>listaPokemons = new ArrayList<>();
-    private List<Pokemon>listaString = new ArrayList<>();
     private PokemonService service;
     private Retrofit retrofit;
     private String urlApi;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        //Realizando configuração da requisição
+
+        /*Realizando configuração da requisição
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://jsonplaceholder.typicode.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        service = retrofit.create(PokemonService.class);
+        service = retrofit.create(PokemonService.class);*/
+        recuperandoDados();
 
-        //Informações do GridView
-        GridView gridPokedex = findViewById(R.id.gridPokedex);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Informações do GridView
+                GridView gridPokedex = findViewById(R.id.gridPokedex);
 
-        //Configurar Adapter
-        PokedexAdapter adapter = new PokedexAdapter(listaPokemons,this);
-        gridPokedex.setAdapter(adapter);*/
+                //Configurar Adapter
+                PokedexAdapter adapter = new PokedexAdapter(listaPokemons,getApplicationContext());
+                gridPokedex.setAdapter(adapter);
+
+                gridPokedex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(getBaseContext(), "Imagem: "+position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        },5000);
 
 
     }
@@ -68,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //recuperarListaPokemon();
-        recuperandoDados();
+        //recuperandoDados();
     }
 
     private void recuperandoDados(){
@@ -147,20 +165,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Pokemon pokemon = new Pokemon();
+
             JSONArray objetoPokemon = null;
-            List<String>tipos=new ArrayList<>();
-            List<String>fraquezas=new ArrayList<>();
+
 
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 objetoPokemon = jsonObject.getJSONArray("pokemon");
 
                 for(int i =0;i<objetoPokemon.length();i++){
+                    List<String>tipos=new ArrayList<>();
+                    List<String>fraquezas=new ArrayList<>();
                     tipos.clear();
                     fraquezas.clear();
                     JSONObject jsonObjectDadosPokemon = new JSONObject(objetoPokemon.getString(i));
-
+                    Pokemon pokemon = new Pokemon();
                     pokemon.setId(jsonObjectDadosPokemon.getInt("id"));
                     pokemon.setNum(jsonObjectDadosPokemon.getString("num"));
                     pokemon.setName(jsonObjectDadosPokemon.getString("name"));
@@ -183,12 +202,18 @@ public class MainActivity extends AppCompatActivity {
                         fraquezas.add(valor);
                         pokemon.setWeaknesses(fraquezas);
                     }
+                    //Adicionando o Pokemon a lista Principal
+                    listaPokemons.add(pokemon);
 
-                    //pokemon.setWeaknesses(jsonObjectDadosPokemon.getString("weaknesses"));
 
-                    System.out.println("ID POKEMON: "+pokemon.getId() +" Número Pokemon: "+ pokemon.getNum()+ " Nome: "+pokemon.getName()
-                    +" Endereço da imagem: "+pokemon.getImg()+" Tamanho: "+pokemon.getHeight()+" Peso: "+pokemon.getWeight()+"    TIPOS: "+pokemon.getType()+"   FRAQUEZAS: "+ pokemon.getWeaknesses());
+                    /*System.out.println("ID POKEMON: "+pokemon.getId() +" Número Pokemon: "+ pokemon.getNum()+ " Nome: "+pokemon.getName()
+                    +" Endereço da imagem: "+pokemon.getImg()+" Tamanho: "+pokemon.getHeight()+" Peso: "+pokemon.getWeight()+"    TIPOS: "+pokemon.getType()+"   FRAQUEZAS: "+ pokemon.getWeaknesses());*/
                 }
+/*
+                for(int i = 0 ; i<listaPokemons.size();i++){
+                    Pokemon poke = listaPokemons.get(i);
+                    System.out.println("Lista FASES: "+poke.getName());
+                }*/
 
 
             } catch (JSONException e) {
