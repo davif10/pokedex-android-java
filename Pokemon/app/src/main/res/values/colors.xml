@@ -8,4 +8,23 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cinza">#F1F1F1</color>
+
+    //Cores de fundo dos tipos de Pokemon
+    <color name="Grass">#009688</color>
+    <color name="Poison">#9C27B0</color>
+    <color name="Fire">#FF9800</color>
+    <color name="Flying">#ECE398</color>
+    <color name="Ice">#2196F3</color>
+    <color name="Psychic">#ECB5FF</color>
+    <color name="Water">#88DAFF</color>
+    <color name="Ground">#C18833</color>
+    <color name="Rock">#805A22</color>
+    <color name="Electric">#FFE500</color>
+    <color name="Bug">#8BC34A</color>
+    <color name="Normal">#CCCCCC</color>
+    <color name="Fighting">#F44336</color>
+    <color name="Ghost">#42207E</color>
+    <color name="Dark">#2F1B53</color>
+    <color name="Fairy">#DD48C5</color>
+
 </resources>

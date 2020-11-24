@@ -15,6 +15,10 @@ import com.daviprojetos.pokemon.R;
 import com.daviprojetos.pokemon.adapter.PokedexAdapter;
 import com.daviprojetos.pokemon.api.PokemonService;
 import com.daviprojetos.pokemon.model.Pokemon;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private PokemonService service;
     private Retrofit retrofit;
     private String urlApi;
+    private ImageLoader imageLoader;
     Handler handler = new Handler();
 
     @Override
@@ -52,13 +57,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*Realizando configuração da requisição
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        service = retrofit.create(PokemonService.class);*/
         recuperandoDados();
+        //Configurando o ImageLoader para fazer o download das imagens
+        DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.vazia)
+                .showImageOnFail(R.drawable.erro)
+                .showImageOnLoading(R.drawable.carregando)
+                .cacheInMemory(true)
+                .displayer(new FadeInBitmapDisplayer(1000))
+                .build();
+
+
+        ImageLoaderConfiguration conf = new ImageLoaderConfiguration.Builder(MainActivity.this)
+                .defaultDisplayImageOptions(displayImageOptions)
+                .memoryCacheSize(50*1024*1024)
+                .threadPoolSize(5)
+                .build();
+
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(conf);
+
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -67,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 GridView gridPokedex = findViewById(R.id.gridPokedex);
 
                 //Configurar Adapter
-                PokedexAdapter adapter = new PokedexAdapter(listaPokemons,getApplicationContext());
+                PokedexAdapter adapter = new PokedexAdapter(listaPokemons,getApplicationContext(),imageLoader);
                 gridPokedex.setAdapter(adapter);
 
                 gridPokedex.setOnItemClickListener(new AdapterView.OnItemClickListener() {

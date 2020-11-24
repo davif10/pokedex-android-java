@@ -39,4 +39,5 @@ dependencies {
     //Dependências Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }
