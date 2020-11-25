@@ -73,4 +73,36 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cinza"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cinza"
+            android:gravity="center"
+            android:text="Fraquezas"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="3dp">
+
+            <GridView
+                android:id="@+id/gridFraqueza"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:numColumns="7"
+                android:stretchMode="columnWidth" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

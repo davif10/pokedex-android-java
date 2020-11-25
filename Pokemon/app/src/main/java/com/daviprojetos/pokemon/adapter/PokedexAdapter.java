@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,6 @@ public class PokedexAdapter extends BaseAdapter {
     private Context context;
     private Pokemon pokemon;
     private ImageLoader imageLoader;
-    private Bitmap img = null;
 
     public PokedexAdapter(List<Pokemon> listaPokemon, Context c,ImageLoader imgLoader) {
         this.listaPokemon = listaPokemon;
@@ -79,14 +79,15 @@ public class PokedexAdapter extends BaseAdapter {
         TextView textTipo1 = convertView.findViewById(R.id.textTipo1);
         TextView textTipo2 = convertView.findViewById(R.id.textTipo2);
         ImageView imagemPoke = convertView.findViewById(R.id.imagePokemon);
+        textTipo2.setVisibility(View.VISIBLE);
 
 
         pokemon = listaPokemon.get(position);
         textNome.setText(pokemon.getName());
         textNumero.setText("Nº"+pokemon.getNum());
 
-        //Lista com os Tipos e adicionando cor de fundo no botão
-        List<String>tipos=new ArrayList<>();
+        //Lista com os Tipos e adicionando cor de fundo no botão dos tipos
+        List<String>tipos;
         tipos = pokemon.getType();
         textTipo1.setText(tipos.get(0));
         String corFundoBotao = tipos.get(0);
@@ -122,6 +123,10 @@ public class PokedexAdapter extends BaseAdapter {
             case "Dark":textTipo1.setBackgroundResource(R.color.Dark);
                 break;
             case "Fairy":textTipo1.setBackgroundResource(R.color.Fairy);
+                break;
+            case "Dragon":textTipo1.setBackgroundResource(R.color.Dragon);
+                break;
+            case "Steel":textTipo1.setBackgroundResource(R.color.Steel);
                 break;
             default:textTipo1.setBackgroundResource(R.color.black);
                 break;
@@ -165,6 +170,10 @@ public class PokedexAdapter extends BaseAdapter {
                     break;
                 case "Fairy":textTipo2.setBackgroundResource(R.color.Fairy);
                     break;
+                case "Dragon":textTipo2.setBackgroundResource(R.color.Dragon);
+                    break;
+                case "Steel":textTipo2.setBackgroundResource(R.color.Steel);
+                    break;
                 default:textTipo2.setBackgroundResource(R.color.black);
                     break;
             }
@@ -206,6 +215,15 @@ public class PokedexAdapter extends BaseAdapter {
             }
         });
 
+
+        //Configurando as fraquezas
+        List<String> listaFraqueza;
+        listaFraqueza = pokemon.getWeaknesses();
+        GridView gridFraquezas = convertView.findViewById(R.id.gridFraqueza);
+        //Configurar adapter
+
+        ListAdapter adapter  =  new FraquezaAdapter(listaFraqueza,context);
+        gridFraquezas.setAdapter(adapter);
 
 
         return convertView;

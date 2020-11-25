@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
                 gridPokedex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getBaseContext(), "Imagem: "+position, Toast.LENGTH_SHORT).show();
+                        Pokemon pokemon = listaPokemons.get(position);
+                        Toast.makeText(getBaseContext(), "Pokemon: "+pokemon.getName(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -223,15 +224,9 @@ public class MainActivity extends AppCompatActivity {
                     //Adicionando o Pokemon a lista Principal
                     listaPokemons.add(pokemon);
 
-
                     /*System.out.println("ID POKEMON: "+pokemon.getId() +" Número Pokemon: "+ pokemon.getNum()+ " Nome: "+pokemon.getName()
                     +" Endereço da imagem: "+pokemon.getImg()+" Tamanho: "+pokemon.getHeight()+" Peso: "+pokemon.getWeight()+"    TIPOS: "+pokemon.getType()+"   FRAQUEZAS: "+ pokemon.getWeaknesses());*/
                 }
-/*
-                for(int i = 0 ; i<listaPokemons.size();i++){
-                    Pokemon poke = listaPokemons.get(i);
-                    System.out.println("Lista FASES: "+poke.getName());
-                }*/
 
 
             } catch (JSONException e) {
@@ -241,4 +236,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);
+    }
 }
