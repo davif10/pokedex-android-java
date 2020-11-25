@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -216,17 +217,9 @@ public class PokedexAdapter extends BaseAdapter {
         });
 
 
-        //Configurando as fraquezas
-        List<String> listaFraqueza;
-        listaFraqueza = pokemon.getWeaknesses();
-        GridView gridFraquezas = convertView.findViewById(R.id.gridFraqueza);
-        //Configurar adapter
-
-        ListAdapter adapter  =  new FraquezaAdapter(listaFraqueza,context);
-        gridFraquezas.setAdapter(adapter);
-
-
         return convertView;
     }
+
+
 
 }

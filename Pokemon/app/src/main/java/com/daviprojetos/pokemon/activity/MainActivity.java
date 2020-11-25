@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.daviprojetos.pokemon.R;
 import com.daviprojetos.pokemon.adapter.PokedexAdapter;
-import com.daviprojetos.pokemon.api.PokemonService;
 import com.daviprojetos.pokemon.model.Pokemon;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,21 +32,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private List<Pokemon>listaPokemons = new ArrayList<>();
-    private PokemonService service;
-    private Retrofit retrofit;
     private String urlApi;
     private ImageLoader imageLoader;
     Handler handler = new Handler();
@@ -115,27 +105,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void recuperarListaPokemon(){
-        Call<List<Pokemon>>call  = service.recuperarPokemons();
-
-        call.enqueue(new Callback<List<Pokemon>>() {
-            @Override
-            public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>> response) {
-                if(response.isSuccessful()){
-                    listaPokemons = response.body();
-                    for(int i = 0;i<listaPokemons.size();i++){
-                        Pokemon pokemon = listaPokemons.get(i);
-                        System.out.println("Resultado: "+pokemon.getId());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Pokemon>> call, Throwable t) {
-
-            }
-        });
-    }
 
     class MyTask extends AsyncTask<String,Void,String>{
 
